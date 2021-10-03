@@ -1,48 +1,28 @@
 import 'package:flutter/material.dart';
 
-class TaskTile extends StatefulWidget {
-  const TaskTile({
-    Key? key,
-  }) : super(key: key);
+class TaskTile extends StatelessWidget {
+  final Function(bool?) checkboxCallback;
 
-  @override
-  State<TaskTile> createState() => _TaskTileState();
-}
-
-class _TaskTileState extends State<TaskTile> {
-  bool? isChecked = false;
+  final bool? isChecked;
+  final String taskTitle;
+  TaskTile(
+      {this.isChecked = false,
+      required this.taskTitle,
+      required this.checkboxCallback});
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      trailing: TaskCheckbox(
-          checkBoxState: isChecked,
-          toggleCheckBoxState: (bool? checkBoxState) {
-            setState(() {
-              isChecked = checkBoxState;
-            });
-          }),
+      trailing: Checkbox(
+        value: isChecked,
+        activeColor: Colors.lightBlueAccent,
+        onChanged: checkboxCallback,
+      ),
       title: Text(
-        'This is a task',
+        taskTitle,
         style: TextStyle(
             decoration: isChecked! ? TextDecoration.lineThrough : null),
       ),
-    );
-  }
-}
-
-class TaskCheckbox extends StatelessWidget {
-  final bool? checkBoxState;
-  final void Function(bool?) toggleCheckBoxState;
-
-  TaskCheckbox({this.checkBoxState, required this.toggleCheckBoxState});
-
-  @override
-  Widget build(BuildContext context) {
-    return Checkbox(
-      value: checkBoxState,
-      activeColor: Colors.lightBlueAccent,
-      onChanged: toggleCheckBoxState,
     );
   }
 }
