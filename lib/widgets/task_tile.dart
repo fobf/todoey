@@ -5,6 +5,7 @@ class TaskTile extends StatelessWidget {
   final bool? isChecked;
   final String taskTitle;
   final Function() longPressCallback;
+  // ignore: use_key_in_widget_constructors
   TaskTile(
       {this.isChecked = false,
       required this.taskTitle,
